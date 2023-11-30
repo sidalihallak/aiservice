@@ -12,8 +12,8 @@ def home():
     content = request.args.get('content')
     print("content", content)
     response = g4f.ChatCompletion.create(
-        model=g4f.models.gpt_4,
-        provider=g4f.Provider.Bing,
+        model=g4f.models.gpt_35_turbo_16k_0613,
+        provider=g4f.Provider.AiChatOnline,
         messages=[{"role": "user", "content": content}],
     )  # Alternative model setting
     print("response", response)
