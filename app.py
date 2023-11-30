@@ -17,8 +17,8 @@ def home():
         messages=[{"role": "user", "content": content}],
     )  # Alternative model setting
     print("response", response)
-
-    return jsonify(
+    res = jsonify(
         response=response
     )
-
+    res.headers.add('Access-Control-Allow-Origin', '*')
+    return res
