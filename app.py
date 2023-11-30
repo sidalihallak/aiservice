@@ -1,3 +1,5 @@
+import re
+
 from flask import Flask, jsonify
 from flask import request
 import g4f
@@ -12,13 +14,27 @@ def home():
     content = request.args.get('content')
     print("content", content)
     response = g4f.ChatCompletion.create(
+        stream=True,
         model=g4f.models.gpt_35_turbo_16k_0613,
         provider=g4f.Provider.AiChatOnline,
         messages=[{"role": "user", "content": content}],
     )  # Alternative model setting
-    print("response", response)
+    code = ''
+    count = 0
+    for message in response:
+        count = count + 1
+        code += message
+        pattern = r'```mermaid(.*?)```'
+        matches = re.search(pattern, code, re.DOTALL)
+
+        if matches:
+            content_between = matches.group(1)
+            print(content_between)
+            code = content_between
+            break
+
     res = jsonify(
-        response=response
+        response=code
     )
     res.headers.add('Access-Control-Allow-Origin', '*')
     return res
