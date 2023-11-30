@@ -1,2 +1,10 @@
 Flask
 Gunicorn
+requests
+platformdirs
+browser_cookie3
+aiohttp
+numpy
+PyExecJS
+curl_cffi
+Pillow
